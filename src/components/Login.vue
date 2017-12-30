@@ -16,16 +16,17 @@ export default {
 	data() {
 		return {
 			user: {},
-			authService: new AuthService,
-			currentUser: {}
+			authService: new AuthService
 		}
 	},
 	methods: {
 		connexion() {
 			this.authService.login(this.user, '/')
-			this.authService.getCurrent().then(res => {
-				this.currentUser = res
-			})
+		}
+	},
+	mounted() {
+		if(this.authService.checkAuth()) {
+			this.$router.push('/')
 		}
 	}
 }
